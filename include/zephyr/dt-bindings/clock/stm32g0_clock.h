@@ -63,6 +63,9 @@
 	 (((mask) & STM32_CLOCK_MASK_MASK) << STM32_CLOCK_MASK_SHIFT) |		\
 	 (((val) & STM32_CLOCK_VAL_MASK) << STM32_CLOCK_VAL_SHIFT))
 
+/** @brief RCC_CFGR register offset */
+#define CFGR_REG 0x08
+
 /** @brief RCC_CCIPR register offset */
 #define CCIPR_REG		0x54
 #define CCIPR2_REG		0x58
@@ -71,6 +74,11 @@
 #define BDCR_REG		0x5C
 
 /** @brief Device domain clocks selection helpers */
+/** CFGR devices */
+#define MCO1_SEL(val)           STM32_CLOCK((val), 15, 24, CFGR_REG)
+#define MCO1_PRE(val)           STM32_CLOCK((val), 15, 28, CFGR_REG)
+#define MCO2_SEL(val)           STM32_CLOCK((val), 15, 16, CFGR_REG)
+#define MCO2_PRE(val)           STM32_CLOCK((val), 15, 20, CFGR_REG)
 /** CCIPR devices */
 #define USART1_SEL(val)		STM32_CLOCK(val, 3, 0, CCIPR_REG)
 #define USART2_SEL(val)		STM32_CLOCK(val, 3, 2, CCIPR_REG)
@@ -93,5 +101,23 @@
 #define USB_SEL(val)		STM32_CLOCK(val, 3, 12, CCIPR2_REG)
 /** BDCR devices */
 #define RTC_SEL(val)		STM32_CLOCK(val, 3, 8, BDCR_REG)
+
+/* MCO prescaler : division factor */
+#define MCO_PRE_DIV_1   0
+#define MCO_PRE_DIV_2   1
+#define MCO_PRE_DIV_4   2
+#define MCO_PRE_DIV_8   3
+#define MCO_PRE_DIV_16  4
+#define MCO_PRE_DIV_32  5
+#define MCO_PRE_DIV_64  6
+#define MCO_PRE_DIV_128 7
+
+/* MCO clock output */
+#define MCO_SEL_SYSCLK  1
+#define MCO_SEL_HSI16   3
+#define MCO_SEL_HSE     4
+#define MCO_SEL_PLLRCLK 5
+#define MCO_SEL_LSI     6
+#define MCO_SEL_LSE     7
 
 #endif /* ZEPHYR_INCLUDE_DT_BINDINGS_CLOCK_STM32G0_CLOCK_H_ */
